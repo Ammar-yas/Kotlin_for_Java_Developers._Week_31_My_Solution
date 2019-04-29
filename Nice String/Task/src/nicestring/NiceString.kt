@@ -13,6 +13,14 @@ fun String.isNice(): Boolean {
             "uae".contains(this[it.index + 1])
         else false
     }
+    return (containsSameLetter && containsThreeVowels)
+            || (containsSameLetter && !containsSubstring)
+            || (containsThreeVowels && !containsSubstring)
+}
 
-    return (containsSameLetter && containsThreeVowels) || (containsSameLetter && !containsSubstring) || (containsThreeVowels && !containsSubstring)
+fun String.isNiceCourseraSolution(): Boolean {
+    val noBadSubString = setOf("ba", "be", "bu").none { this.contains(it) }
+    val hasThreeVowels = count { it in "aeiou" } >= 3
+    val hasDouble = zipWithNext().any { it.first == it.second }
+    return listOf(noBadSubString, hasThreeVowels, hasDouble).count { it } >= 2
 }
